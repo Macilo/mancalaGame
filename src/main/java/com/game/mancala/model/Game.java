@@ -93,11 +93,11 @@ public class Game {
     }
 
     public  void  displayBoard(Board board)  {
-             String TEMPLATE = "Player Two" +
-            "| %02d | %02d | %02d | %02d | %02d | %02d |" +
-            "(%02d)                                 (%02d)" +
-            "| %02d | %02d | %02d | %02d | %02d | %02d |" +
-            "Player One";
+             String TEMPLATE = "\t\t\t\tPlayer Two \n" +
+            "\t| %02d | %02d | %02d | %02d | %02d | %02d | \n" +
+            "(%02d)                                 (%02d)\n" +
+            "\t| %02d | %02d | %02d | %02d | %02d | %02d |\n" +
+            "\t\t\t\t Player One";
 
         Player player1 = board.getPlayers().get(0);
         Player player2 = board.getPlayers().get(1);
@@ -109,8 +109,8 @@ public class Game {
         pits.add(player1.getPitStore());
         pits.addAll(player1.getPitHouses());
 
-            System.out.println(String.format(TEMPLATE, pits.stream()
-                .map(Pit::count).toArray()));
+            System.out.printf((TEMPLATE) + "%n", pits.stream()
+                .map(Pit::count).toArray());
     }
 
     public void play() {
@@ -124,6 +124,7 @@ public class Game {
                 int i = Integer.parseInt(br.readLine()); //  get the move,
                 Result result = move(getActivePlayer().getNum(), i);
                 if (gameOver()) {
+                    displayBoard(board);
                     System.out.println(result.getStatus().getMessage());
                 }
             }catch (NumberFormatException e){
